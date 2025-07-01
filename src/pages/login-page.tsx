@@ -33,7 +33,6 @@ const LoginPage: React.FC = () => {
         values.subdomain
       );
       if (success) {
-        console.log("Login successful:", user);
         messageApi.success("Tizimga muvaffaqiyatli kirildi!");
       } else {
         messageApi.error("Username, parol yoki subdomain noto'g'ri!");

@@ -37,6 +37,7 @@ export default function App() {
               <Route path="products" element={<ProductsPage />} />
               <Route path="search" element={<SearchPage />} />
             </Route>
+            <Route path="*" element={<Navigate to="/login" replace />} />
           </Routes>
         </Router>
       </AuthProvider>
