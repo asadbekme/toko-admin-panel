@@ -113,6 +113,9 @@ const SearchPage: React.FC = () => {
       key: "productName",
       width: 180,
       render: (text: string) => {
+        if (!text || text.trim() === "") {
+          return <span>Nomi mavjud emas</span>;
+        }
         if (!searchTerm.trim()) return text;
 
         const searchLower = searchTerm.toLowerCase();

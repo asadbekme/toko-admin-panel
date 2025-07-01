@@ -94,6 +94,7 @@ const ProductsPage: React.FC = () => {
       dataIndex: "productName",
       key: "productName",
       width: 180,
+      render: (text: string) => text || "Nomi mavjud emas",
     },
     {
       title: "SKU",
