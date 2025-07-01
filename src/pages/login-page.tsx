@@ -18,6 +18,7 @@ interface LoginForm {
 const LoginPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const { user, login } = useAuth();
+  const [messageApi, contextHolder] = message.useMessage();
 
   if (user) {
     return <Navigate to="/products" replace />;
@@ -32,12 +33,13 @@ const LoginPage: React.FC = () => {
         values.subdomain
       );
       if (success) {
-        message.success("Muvaffaqiyatli kirildi!");
+        console.log("Login successful:", user);
+        messageApi.success("Tizimga muvaffaqiyatli kirildi!");
       } else {
-        message.error("Login yoki parol noto'g'ri!");
+        messageApi.error("Username, parol yoki subdomain noto'g'ri!");
       }
     } catch (error) {
-      message.error("Xatolik yuz berdi!");
+      messageApi.error("Xatolik yuz berdi!");
       console.log("Login error:", error);
     } finally {
       setLoading(false);
@@ -51,13 +53,12 @@ const LoginPage: React.FC = () => {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+        background: "linear-gradient(135deg, #4d9aff 0%, #1890ff 100%)",
       }}
     >
       <Card style={{ width: 400, boxShadow: "0 4px 12px rgba(0,0,0,0.15)" }}>
         <div style={{ textAlign: "center", marginBottom: 24 }}>
-          <Title level={2}>Admin Panel</Title>
-          <p style={{ color: "#666" }}>Tizimga kirish</p>
+          <Title level={2}>Tizimga kirish</Title>
         </div>
 
         <Form
@@ -70,6 +71,7 @@ const LoginPage: React.FC = () => {
             subdomain: "toko",
           }}
         >
+          {contextHolder}
           <Form.Item
             name="username"
             rules={[

@@ -28,15 +28,15 @@ const SearchPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const { user } = useAuth();
+  const [messageApi, contextHolder] = message.useMessage();
 
-  // Barcha mahsulotlarni bir marta yuklash
   const fetchAllProducts = async () => {
     if (!user?.token) return;
 
     setLoading(true);
     try {
       const response = await fetch(
-        "https://toko.ox-sys.com/variations?page=1&size=1000", // Katta hajmda yuklash
+        "https://toko.ox-sys.com/variations?page=1&size=1000",
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -50,10 +50,10 @@ const SearchPage: React.FC = () => {
         const data = await response.json();
         setAllProducts(data.items);
       } else {
-        message.error("Ma'lumotlarni yuklashda xatolik!");
+        messageApi.error("Ma'lumotlarni yuklashda xatolik!");
       }
     } catch (error) {
-      message.error("Server bilan bog'lanishda xatolik!");
+      messageApi.error("Server bilan bog'lanishda xatolik!");
       console.error("Fetch error:", error);
     } finally {
       setLoading(false);
@@ -64,7 +64,7 @@ const SearchPage: React.FC = () => {
     fetchAllProducts();
   }, [user]);
 
-  // Qidiruv algoritmi - harflar joylashuviga qarab tartiblanadi
+  // Search algorithm - harflar joylashuviga qarab tartiblanadi
   const filteredProducts = useMemo(() => {
     if (!searchTerm.trim()) return allProducts;
 
@@ -75,7 +75,7 @@ const SearchPage: React.FC = () => {
       return productName.includes(searchLower);
     });
 
-    // Tartiblanish algoritmi
+    // Sort algorithm
     return filtered.sort((a, b) => {
       const aName = a.productName?.toLowerCase() || "";
       const bName = b.productName?.toLowerCase() || "";
@@ -111,7 +111,7 @@ const SearchPage: React.FC = () => {
       title: "Nomi",
       dataIndex: "productName",
       key: "productName",
-      width: 240,
+      width: 180,
       render: (text: string) => {
         if (!searchTerm.trim()) return text;
 
@@ -159,11 +159,12 @@ const SearchPage: React.FC = () => {
 
   return (
     <div>
+      {contextHolder}
       <Title level={2}>Mahsulotlarni qidirish</Title>
 
       <div style={{ marginBottom: 16 }}>
         <Search
-          placeholder="Yetkazib beruvchi nomini kiriting..."
+          placeholder="Mahsulot nomini kiriting..."
           allowClear
           enterButton={<SearchOutlined />}
           size="large"

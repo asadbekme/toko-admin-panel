@@ -37,6 +37,7 @@ const ProductsPage: React.FC = () => {
     total: 0,
   });
   const { user } = useAuth();
+  const [messageApi, contextHolder] = message.useMessage();
 
   const fetchProducts = async (page = 1, size = 10) => {
     if (!user?.token) return;
@@ -63,10 +64,10 @@ const ProductsPage: React.FC = () => {
           total: data.total_count,
         }));
       } else {
-        message.error("Ma'lumotlarni yuklashda xatolik!");
+        messageApi.error("Ma'lumotlarni yuklashda xatolik!");
       }
     } catch (error) {
-      message.error("Server bilan bog'lanishda xatolik!");
+      messageApi.error("Server bilan bog'lanishda xatolik!");
       console.error("Fetch error:", error);
     } finally {
       setLoading(false);
@@ -92,7 +93,7 @@ const ProductsPage: React.FC = () => {
       title: "Nomi",
       dataIndex: "productName",
       key: "productName",
-      width: 240,
+      width: 180,
     },
     {
       title: "SKU",
@@ -104,7 +105,7 @@ const ProductsPage: React.FC = () => {
       title: "Yetkazib beruvchi",
       dataIndex: "supplier",
       key: "supplier",
-      width: 200,
+      width: 150,
     },
     {
       title: "Barcode",
@@ -130,6 +131,7 @@ const ProductsPage: React.FC = () => {
 
   return (
     <div>
+      {contextHolder}
       <Title level={2}>Mahsulotlar ro'yxati</Title>
 
       <Table
