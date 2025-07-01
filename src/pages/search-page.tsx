@@ -17,7 +17,8 @@ interface Product {
   supplier: string;
   supplierId: number;
   barcode: string;
-  name?: string;
+  name: string;
+  productName: string;
   lastUpdateTime: string;
   showMarket: boolean;
 }
@@ -70,14 +71,14 @@ const SearchPage: React.FC = () => {
     const searchLower = searchTerm.toLowerCase();
 
     const filtered = allProducts.filter((product) => {
-      const supplierName = product.supplier?.toLowerCase() || "";
-      return supplierName.includes(searchLower);
+      const productName = product.productName?.toLowerCase() || "";
+      return productName.includes(searchLower);
     });
 
     // Tartiblanish algoritmi
     return filtered.sort((a, b) => {
-      const aName = a.supplier?.toLowerCase() || "";
-      const bName = b.supplier?.toLowerCase() || "";
+      const aName = a.productName?.toLowerCase() || "";
+      const bName = b.productName?.toLowerCase() || "";
 
       const aIndex = aName.indexOf(searchLower);
       const bIndex = bName.indexOf(searchLower);
@@ -104,19 +105,13 @@ const SearchPage: React.FC = () => {
       title: "ID",
       dataIndex: "id",
       key: "id",
-      width: 80,
+      width: 60,
     },
     {
-      title: "SKU",
-      dataIndex: "sku",
-      key: "sku",
-      width: 150,
-    },
-    {
-      title: "Yetkazib beruvchi",
-      dataIndex: "supplier",
-      key: "supplier",
-      width: 200,
+      title: "Nomi",
+      dataIndex: "productName",
+      key: "productName",
+      width: 240,
       render: (text: string) => {
         if (!searchTerm.trim()) return text;
 
@@ -142,9 +137,9 @@ const SearchPage: React.FC = () => {
       },
     },
     {
-      title: "Yetkazib beruvchi ID",
-      dataIndex: "supplierId",
-      key: "supplierId",
+      title: "SKU",
+      dataIndex: "sku",
+      key: "sku",
       width: 150,
     },
     {

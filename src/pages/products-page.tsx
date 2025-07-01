@@ -16,7 +16,8 @@ interface Product {
   supplier: string;
   supplierId: number;
   barcode: string;
-  name?: string;
+  name: string;
+  productName: string;
   lastUpdateTime: string;
   showMarket: boolean;
 }
@@ -85,7 +86,13 @@ const ProductsPage: React.FC = () => {
       title: "ID",
       dataIndex: "id",
       key: "id",
-      width: 80,
+      width: 60,
+    },
+    {
+      title: "Nomi",
+      dataIndex: "productName",
+      key: "productName",
+      width: 240,
     },
     {
       title: "SKU",
@@ -98,12 +105,6 @@ const ProductsPage: React.FC = () => {
       dataIndex: "supplier",
       key: "supplier",
       width: 200,
-    },
-    {
-      title: "Yetkazib beruvchi ID",
-      dataIndex: "supplierId",
-      key: "supplierId",
-      width: 150,
     },
     {
       title: "Barcode",
