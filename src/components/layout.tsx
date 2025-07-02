@@ -16,7 +16,7 @@ import {
   SearchOutlined,
   MenuOutlined,
 } from "@ant-design/icons";
-import { useAuth } from "../hooks/use-auth";
+import { useAuth } from "@/hooks/use-auth";
 
 const { Header, Content, Sider } = AntLayout;
 const { Title } = Typography;

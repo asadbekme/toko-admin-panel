@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { Form, Input, Button, Card, Typography, message, Spin } from "antd";
 import { UserOutlined, LockOutlined, GlobalOutlined } from "@ant-design/icons";
-import { useAuth } from "../hooks/use-auth";
+import { useAuth } from "@/hooks/use-auth";
 
 const { Title } = Typography;
 

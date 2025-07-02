@@ -7,10 +7,10 @@ import {
   Navigate,
 } from "react-router-dom";
 import { ConfigProvider } from "antd";
-import { AuthProvider } from "./contexts/auth-context";
-import { LoginPage, ProductsPage, SearchPage } from "./pages";
-import ProtectedRoute from "./components/protected-route";
-import Layout from "./components/layout";
+import { AuthProvider } from "@/contexts/auth-context";
+import { LoginPage, ProductsPage, SearchPage } from "@/pages";
+import ProtectedRoute from "@/components/protected-route";
+import Layout from "@/components/layout";
 
 export default function App() {
   return (

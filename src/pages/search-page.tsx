@@ -1,12 +1,11 @@
 "use client";
 
 import type React from "react";
-
 import { useState, useEffect, useMemo } from "react";
 import { Input, Table, Typography, message, Spin } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
-import { useAuth } from "../hooks/use-auth";
+import { useAuth } from "@/hooks/use-auth";
 
 const { Title } = Typography;
 const { Search } = Input;

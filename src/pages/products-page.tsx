@@ -1,12 +1,10 @@
 "use client";
 
 import type React from "react";
-
 import { useState, useEffect } from "react";
-import type { TablePaginationConfig } from "antd/es/table";
 import { Table, Typography, message } from "antd";
-import type { ColumnsType } from "antd/es/table";
-import { useAuth } from "../hooks/use-auth";
+import type { ColumnsType, TablePaginationConfig } from "antd/es/table";
+import { useAuth } from "@/hooks/use-auth";
 
 const { Title } = Typography;
 
