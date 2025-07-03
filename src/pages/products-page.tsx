@@ -2,11 +2,12 @@
 
 import type React from "react";
 import { useState, useEffect } from "react";
-import { Table, Typography, message } from "antd";
+import { Table, Typography, message, Grid } from "antd";
 import type { ColumnsType, TablePaginationConfig } from "antd/es/table";
 import { useAuth } from "@/hooks/use-auth";
 
 const { Title } = Typography;
+const { useBreakpoint } = Grid;
 
 interface Product {
   id: number;
@@ -36,6 +37,8 @@ const ProductsPage: React.FC = () => {
   });
   const { user } = useAuth();
   const [messageApi, contextHolder] = message.useMessage();
+  const screens = useBreakpoint();
+  const isDesktop = screens.lg; // >= 992px
 
   const fetchProducts = async (page = 1, size = 10) => {
     if (!user?.token) return;
@@ -143,7 +146,7 @@ const ProductsPage: React.FC = () => {
           showSizeChanger: true,
           showQuickJumper: true,
           showTotal: (total, range) =>
-            `${range[0]}-${range[1]} / ${total} ta mahsulot`,
+            isDesktop ? `${range[0]}-${range[1]} / ${total} ta mahsulot` : null,
         }}
         onChange={handleTableChange}
         scroll={{ x: 1000 }}

@@ -2,13 +2,14 @@
 
 import type React from "react";
 import { useState, useEffect, useMemo } from "react";
-import { Input, Table, Typography, message, Spin } from "antd";
+import { Input, Table, Typography, message, Spin, Grid } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
 import { useAuth } from "@/hooks/use-auth";
 
 const { Title } = Typography;
 const { Search } = Input;
+const { useBreakpoint } = Grid;
 
 interface Product {
   id: number;
@@ -28,6 +29,8 @@ const SearchPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const { user } = useAuth();
   const [messageApi, contextHolder] = message.useMessage();
+  const screens = useBreakpoint();
+  const isDesktop = screens.lg; // >= 992px
 
   const fetchAllProducts = async () => {
     if (!user?.token) return;
@@ -162,9 +165,15 @@ const SearchPage: React.FC = () => {
   return (
     <div>
       {contextHolder}
-      <Title level={2}>Mahsulotlarni qidirish</Title>
-
-      <div style={{ marginBottom: 16 }}>
+      <div
+        style={{
+          marginBottom: 16,
+          display: "flex",
+          flexDirection: isDesktop ? "row" : "column",
+          justifyContent: "space-between",
+        }}
+      >
+        <Title level={2}>Mahsulotlarni qidirish</Title>
         <Search
           placeholder="Mahsulot nomini kiriting..."
           allowClear
@@ -172,7 +181,7 @@ const SearchPage: React.FC = () => {
           size="large"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          style={{ maxWidth: 400 }}
+          style={{ maxWidth: 384 }}
         />
       </div>
 
@@ -190,7 +199,7 @@ const SearchPage: React.FC = () => {
             showSizeChanger: true,
             showQuickJumper: true,
             showTotal: (total, range) =>
-              `${range[0]}-${range[1]} / ${total} ta natija`,
+              isDesktop ? `${range[0]}-${range[1]} / ${total} ta natija` : null,
           }}
           scroll={{ x: 1000 }}
         />

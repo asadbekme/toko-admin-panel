@@ -59,7 +59,7 @@ const Layout: React.FC = () => {
 
   return (
     <AntLayout style={{ minHeight: "100vh" }}>
-      {isDesktop && (
+      {isDesktop ? (
         <Sider
           width={200}
           theme="dark"
@@ -85,10 +85,7 @@ const Layout: React.FC = () => {
             theme="dark"
           />
         </Sider>
-      )}
-
-      {/* Drawer for mobile/tablet */}
-      {!isDesktop && (
+      ) : (
         <Drawer
           title="Admin Panel"
           placement="left"
